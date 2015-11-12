@@ -353,6 +353,10 @@ public class MaterialSearchView extends FrameLayout implements Filter.FilterList
         startFilter(mSearchSrcTextView.getText());
     }
 
+	public ListAdapter getAdapter() {
+		return mAdapter;
+	}
+
     /**
      * Dissmiss the suggestions list.
      */
