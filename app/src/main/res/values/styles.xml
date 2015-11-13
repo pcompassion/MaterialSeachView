@@ -7,7 +7,7 @@
 
     <style name="MaterialSearchViewStyle">
         <item name="searchBackground">@android:color/white</item>
-        <item name="searchVoiceIcon">@drawable/ic_action_voice_search</item>
+        <item name="searchVoiceIcon">@drawable/ic_fa_search_dark</item>
         <item name="searchCloseIcon">@drawable/ic_action_navigation_close</item>
         <item name="searchBackIcon">@drawable/ic_action_navigation_arrow_back</item>
         <!--<item name="searchSuggestionBackground">...</item>-->
