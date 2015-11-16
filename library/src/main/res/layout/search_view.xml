@@ -3,7 +3,40 @@
     android:id="@+id/search_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:visibility="gone">
+    android:visibility="gone"
+    android:background="#eee">
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:layout_margin="30dp"
+        android:paddingTop="100dp"
+        android:background="#999">
+
+
+
+        <Button
+            android:layout_marginTop="50dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginLeft="30dp"
+            android:id="@+id/current_location_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="current location"
+            android:layout_gravity="center"/>
+
+        <Button
+            android:layout_marginTop="150dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginLeft="30dp"
+            android:id="@+id/area_search_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="search by area"
+            android:layout_gravity="center"/>
+
+    </RelativeLayout>
 
     <View
         android:id="@+id/transparent_view"
@@ -77,4 +110,5 @@
             android:layout_height="wrap_content"
             android:background="#999"/>
     </LinearLayout>
+
 </FrameLayout>
