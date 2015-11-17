@@ -148,7 +148,8 @@ public class MaterialSearchView extends FrameLayout implements Filter.FilterList
 
         initSearchView();
 
-        mSuggestionsListView.setVisibility(GONE);
+		dismissSuggestions();
+        // mSuggestionsListView.setVisibility(GONE);
     }
 
     private void initSearchView() {
@@ -185,7 +186,6 @@ public class MaterialSearchView extends FrameLayout implements Filter.FilterList
                 if (hasFocus) {
 					showSearch();
                     showKeyboard(mSearchSrcTextView);
-                    showSuggestions();
                 }
             }
         });
@@ -207,7 +207,7 @@ public class MaterialSearchView extends FrameLayout implements Filter.FilterList
             } else if (v == mEmptyBtn) {
                 mSearchSrcTextView.setText(null);
             } else if (v == mSearchSrcTextView) {
-                showSuggestions();
+				showSearch();
             } else if (v == mTintView) {
                 closeSearch();
 			}
@@ -312,7 +312,10 @@ public class MaterialSearchView extends FrameLayout implements Filter.FilterList
      */
     public void showSuggestions() {
         if (mAdapter != null && mAdapter.getCount() > 0 && mSuggestionsListView.getVisibility() == GONE) {
+			Log.d("selectAreaInfos", "selectAreaInfos suggestion show 1");
+
             mSuggestionsListView.setVisibility(VISIBLE);
+			mTintView.setVisibility(VISIBLE);
         }
     }
 
@@ -345,7 +348,10 @@ public class MaterialSearchView extends FrameLayout implements Filter.FilterList
      */
     public void dismissSuggestions() {
         if (mSuggestionsListView.getVisibility() == VISIBLE) {
+			Log.d("selectAreaInfos", "selectAreaInfos suggestion dissmiss 1");
+
             mSuggestionsListView.setVisibility(GONE);
+			mTintView.setVisibility(GONE);
         }
     }
 
@@ -416,7 +422,7 @@ public class MaterialSearchView extends FrameLayout implements Filter.FilterList
 
         if (animate) {
 			Log.d("selectAreaInfos", "selectAreaInfos onSearchView show1");
-            AnimationUtil.fadeInView(mSearchLayout, AnimationUtil.ANIMATION_DURATION_MEDIUM, new AnimationUtil.AnimationListener() {
+            AnimationUtil.fadeInView(mSuggestionsListView, AnimationUtil.ANIMATION_DURATION_MEDIUM, new AnimationUtil.AnimationListener() {
                 @Override
                 public boolean onAnimationStart(View view) {
                     return false;
@@ -438,7 +444,8 @@ public class MaterialSearchView extends FrameLayout implements Filter.FilterList
         } else {
 			Log.d("selectAreaInfos", "selectAreaInfos onSearchView show2");
 
-			mSearchLayout.setVisibility(VISIBLE);
+			showSuggestions();
+			// mSuggestionsListView.setVisibility(VISIBLE);
             if (mSearchViewListener != null) {
                 mSearchViewListener.onSearchViewShown();
             }
@@ -459,7 +466,7 @@ public class MaterialSearchView extends FrameLayout implements Filter.FilterList
         dismissSuggestions();
         clearFocus();
 
-		mSearchLayout.setVisibility(GONE);
+		// mSuggestionsListView.setVisibility(GONE);
         if (mSearchViewListener != null) {
             mSearchViewListener.onSearchViewClosed();
         }
@@ -500,10 +507,15 @@ public class MaterialSearchView extends FrameLayout implements Filter.FilterList
 
     @Override
     public void onFilterComplete(int count) {
+		Log.d("selectAreaInfos", "selectAreaInfos onFilterComplete ");
         if (count > 0) {
-            showSuggestions();
+			if(isSearchOpen()){
+				showSuggestions();
+			}
         } else {
-            dismissSuggestions();
+			if(!isSearchOpen()){
+				dismissSuggestions();
+			}
         }
     }
 
