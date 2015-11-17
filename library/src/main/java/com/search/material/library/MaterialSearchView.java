@@ -149,14 +149,13 @@ public class MaterialSearchView extends FrameLayout implements Filter.FilterList
         initSearchView();
 
 		dismissSuggestions();
-        // mSuggestionsListView.setVisibility(GONE);
     }
 
     private void initSearchView() {
         mSearchSrcTextView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                // onSubmitQuery();
+                onSubmitQuery();
                 return true;
             }
         });
@@ -431,9 +430,11 @@ public class MaterialSearchView extends FrameLayout implements Filter.FilterList
 
         if (animate) {
 			Log.d("selectAreaInfos", "selectAreaInfos onSearchView show1");
+
             AnimationUtil.fadeInView(mSuggestionsListView, AnimationUtil.ANIMATION_DURATION_MEDIUM, new AnimationUtil.AnimationListener() {
                 @Override
                 public boolean onAnimationStart(View view) {
+					AnimationUtil.fadeInView(mTintView, AnimationUtil.ANIMATION_DURATION_MEDIUM);
                     return false;
                 }
 
@@ -454,7 +455,6 @@ public class MaterialSearchView extends FrameLayout implements Filter.FilterList
 			Log.d("selectAreaInfos", "selectAreaInfos onSearchView show2");
 
 			showSuggestions();
-			// mSuggestionsListView.setVisibility(VISIBLE);
             if (mSearchViewListener != null) {
                 mSearchViewListener.onSearchViewShown();
             }
@@ -475,7 +475,6 @@ public class MaterialSearchView extends FrameLayout implements Filter.FilterList
         dismissSuggestions();
         clearFocus();
 
-		// mSuggestionsListView.setVisibility(GONE);
         if (mSearchViewListener != null) {
             mSearchViewListener.onSearchViewClosed();
         }
@@ -547,6 +546,7 @@ public class MaterialSearchView extends FrameLayout implements Filter.FilterList
     public void clearFocus() {
         mClearingFocus = true;
         hideKeyboard(this);
+		dismissSuggestions();
         super.clearFocus();
         mSearchSrcTextView.clearFocus();
         mClearingFocus = false;
