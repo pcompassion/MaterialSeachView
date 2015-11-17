@@ -2,20 +2,19 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/search_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-
-    android:background="#eee"
+    android:layout_height="wrap_content"
+    android:background="#ee0"
 	android:visibility="gone">
 
     <View
         android:id="@+id/transparent_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/search_layover_bg" />
+        android:layout_height="0dp"
+        android:background="#f0f" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="10dp">
 
@@ -77,7 +76,7 @@
             android:id="@+id/suggestion_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#999"/>
+            android:background="#099"/>
     </LinearLayout>
 
 </FrameLayout>
