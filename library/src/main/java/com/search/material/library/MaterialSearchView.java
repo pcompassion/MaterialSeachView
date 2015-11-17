@@ -144,7 +144,7 @@ public class MaterialSearchView extends FrameLayout implements Filter.FilterList
         mEmptyBtn.setOnClickListener(mOnClickListener);
         mTintView.setOnClickListener(mOnClickListener);
 
-        showSearch(true);
+        showSearchBtn(true);
 
         initSearchView();
 
@@ -156,7 +156,7 @@ public class MaterialSearchView extends FrameLayout implements Filter.FilterList
         mSearchSrcTextView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                onSubmitQuery();
+                // onSubmitQuery();
                 return true;
             }
         });
@@ -221,10 +221,10 @@ public class MaterialSearchView extends FrameLayout implements Filter.FilterList
         boolean hasText = !TextUtils.isEmpty(text);
         if (hasText) {
             mEmptyBtn.setVisibility(VISIBLE);
-            showSearch(false);
+            showSearchBtn(false);
         } else {
             mEmptyBtn.setVisibility(GONE);
-            showSearch(true);
+            showSearchBtn(true);
         }
 
         if (mOnQueryChangeListener != null && !TextUtils.equals(newText, mOldQueryText)) {
@@ -389,6 +389,15 @@ public class MaterialSearchView extends FrameLayout implements Filter.FilterList
             }
         });
     }
+
+    public void showSearchBtn(boolean show) {
+        if (show) {
+            mSearchBtn.setVisibility(VISIBLE);
+        } else {
+            mSearchBtn.setVisibility(GONE);
+        }
+    }
+
 
     /**
      * Return true if search is open
