@@ -58,10 +58,10 @@ Get reference to it in the Activity and set adapter. Adapter should implement Fi
         super.onCreate(savedInstanceState);
         ....
         MaterialSearchView searchView = (MaterialSearchView) findViewById(R.id.search_view);
-        
+
         SearchAdapter adapter = new SearchAdapter();
         searchView.setAdapter(adapter);
-        
+
         searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -92,9 +92,9 @@ Get reference to it in the Activity and set adapter. Adapter should implement Fi
 
             }
         });
-        
+
     }
-    
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -143,25 +143,25 @@ Closing Search when back pressed
 <style name="MaterialSearchViewStyle">
         <!-- Background for the search bar-->
         <item name="searchBackground">@android:color/white</item>
-        
-        <!-- Change voice icon-->
-        <item name="searchVoiceIcon">@drawable/ic_action_voice_search</item>
-        
+
+        <!-- Change Search icon-->
+        <item name="searchActionIcon">@drawable/ic_fa_search_dark</item>
+
         <!-- Change clear text icon-->
         <item name="searchCloseIcon">@drawable/ic_action_navigation_close</item>
-        
+
         <!-- Change up icon-->
         <item name="searchBackIcon">@drawable/ic_action_navigation_arrow_back</item>
-        
+
         <!-- Change background for the suggestions list view-->
         <item name="searchSuggestionBackground">...</item>
-        
+
         <!-- Change text color for edit text. This will also be the color of the cursor-->
         <item name="android:textColor">@android:color/black</item>
-        
+
         <!-- Change hint text color for edit text-->
         <item name="android:textColorHint">@android:color/black</item>
-        
+
         <!-- Hint for edit text-->
         <item name="android:hint">@string/search_hint</item>
  </style>
