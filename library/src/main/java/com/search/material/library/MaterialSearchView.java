@@ -182,7 +182,7 @@ public class MaterialSearchView extends FrameLayout implements Filter.FilterList
         mSearchSrcTextView.setOnFocusChangeListener(new OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
+                if (hasFocus && isSearchOpen()) {
 					showSearch();
                     showKeyboard(mSearchSrcTextView);
                 }
@@ -481,6 +481,15 @@ public class MaterialSearchView extends FrameLayout implements Filter.FilterList
         mIsSearchOpen = false;
 
     }
+
+	public void showSearchTopBar(){
+		mSearchTopBar.setVisibility(VISIBLE);
+	}
+
+	public void closeSearchTopBar(){
+		mSearchTopBar.setVisibility(GONE);
+	}
+
 
     public void onClickSearch() {
         if (mSearchViewListener != null) {
