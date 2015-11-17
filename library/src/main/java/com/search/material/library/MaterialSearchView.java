@@ -54,11 +54,7 @@ public class MaterialSearchView extends FrameLayout implements Filter.FilterList
     private ImageButton mSearchBtn;
     private ImageButton mEmptyBtn;
 
-    private Button mCurrentLocationBtn;
-    private Button mAreaBtn;
-
     private RelativeLayout mSearchTopBar;
-    private WebView mTagSearchWebView;
 
     private CharSequence mOldQueryText;
     private CharSequence mUserQuery;
@@ -142,20 +138,12 @@ public class MaterialSearchView extends FrameLayout implements Filter.FilterList
         mEmptyBtn = (ImageButton) mSearchLayout.findViewById(R.id.action_empty_btn);
         mTintView = mSearchLayout.findViewById(R.id.transparent_view);
 
-		mCurrentLocationBtn = (Button) mSearchLayout.findViewById(R.id.current_location_button);
-		mAreaBtn = (Button) mSearchLayout.findViewById(R.id.area_search_button);
-
         mSearchSrcTextView.setOnClickListener(mOnClickListener);
         mBackBtn.setOnClickListener(mOnClickListener);
         mSearchBtn.setOnClickListener(mOnClickListener);
         mEmptyBtn.setOnClickListener(mOnClickListener);
         mTintView.setOnClickListener(mOnClickListener);
 
-		mTagSearchWebView = (WebView) mSearchLayout.findViewById(R.id.tag_search_web_view);
-		mTagSearchWebView.loadUrl("http://zibann.kr:12002/momsplanner/hyun_test/");
-        //mTagSearchWebView.loadUrl("http://google.com");
-        mCurrentLocationBtn.setOnClickListener(mOnClickListener);
-        mAreaBtn.setOnClickListener(mOnClickListener);
         showSearch(true);
 
         initSearchView();
@@ -214,7 +202,6 @@ public class MaterialSearchView extends FrameLayout implements Filter.FilterList
         public void onClick(View v) {
             if (v == mBackBtn) {
 				clickHome();
-
             } else if (v == mSearchBtn) {
                 onClickSearch();
             } else if (v == mEmptyBtn) {
@@ -223,10 +210,6 @@ public class MaterialSearchView extends FrameLayout implements Filter.FilterList
                 showSuggestions();
             } else if (v == mTintView) {
                 closeSearch();
-			} else if (v == mCurrentLocationBtn){
-				clickCurrentLocation();
-			} else if (v == mAreaBtn){
-				clickArea();
 			}
 
         }
@@ -496,18 +479,6 @@ public class MaterialSearchView extends FrameLayout implements Filter.FilterList
         }
 	}
 
-	public void clickCurrentLocation(){
-        if (mSearchViewListener != null) {
-            mSearchViewListener.onClickCurrentLocation();
-        }
-	}
-
-	public void clickArea(){
-        if (mSearchViewListener != null) {
-            mSearchViewListener.onClickArea();
-        }
-	}
-
     /**
      * Set this listener to listen to Query Change events.
      *
@@ -660,10 +631,6 @@ public class MaterialSearchView extends FrameLayout implements Filter.FilterList
 		void onClickSearch();
 
 		void onClickHome();
-
-		void onClickCurrentLocation();
-
-		void onClickArea();
     }
 
 }
