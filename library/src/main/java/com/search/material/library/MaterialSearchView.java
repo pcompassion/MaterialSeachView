@@ -31,7 +31,7 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
+import android.webkit.WebView;
 import java.util.List;
 
 /**
@@ -53,6 +53,7 @@ public class MaterialSearchView extends FrameLayout implements Filter.FilterList
     private ImageButton mVoiceBtn;
     private ImageButton mEmptyBtn;
     private RelativeLayout mSearchTopBar;
+    private WebView mTagSearchWebView;
 
     private CharSequence mOldQueryText;
     private CharSequence mUserQuery;
@@ -142,6 +143,9 @@ public class MaterialSearchView extends FrameLayout implements Filter.FilterList
         mEmptyBtn.setOnClickListener(mOnClickListener);
         mTintView.setOnClickListener(mOnClickListener);
 
+		mTagSearchWebView = (WebView) mSearchLayout.findViewById(R.id.tag_search_web_view);
+		mTagSearchWebView.loadUrl("http://zibann.kr:12002/momsplanner/hyun_test/");
+        //mTagSearchWebView.loadUrl("http://google.com");
         showVoice(true);
 
         initSearchView();
