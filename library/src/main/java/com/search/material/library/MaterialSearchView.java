@@ -16,12 +16,14 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Filter;
 import android.widget.Filterable;
@@ -52,6 +54,10 @@ public class MaterialSearchView extends FrameLayout implements Filter.FilterList
     private ImageButton mBackBtn;
     private ImageButton mVoiceBtn;
     private ImageButton mEmptyBtn;
+
+    private Button mCurrentLocationBtn;
+    private Button mAreaBtn;
+
     private RelativeLayout mSearchTopBar;
     private WebView mTagSearchWebView;
 
@@ -137,6 +143,9 @@ public class MaterialSearchView extends FrameLayout implements Filter.FilterList
         mEmptyBtn = (ImageButton) mSearchLayout.findViewById(R.id.action_empty_btn);
         mTintView = mSearchLayout.findViewById(R.id.transparent_view);
 
+		mCurrentLocationBtn = (Button) mSearchLayout.findViewById(R.id.current_location_button);
+		mAreaBtn = (Button) mSearchLayout.findViewById(R.id.area_search_button);
+
         mSearchSrcTextView.setOnClickListener(mOnClickListener);
         mBackBtn.setOnClickListener(mOnClickListener);
         mVoiceBtn.setOnClickListener(mOnClickListener);
@@ -146,6 +155,8 @@ public class MaterialSearchView extends FrameLayout implements Filter.FilterList
 		mTagSearchWebView = (WebView) mSearchLayout.findViewById(R.id.tag_search_web_view);
 		mTagSearchWebView.loadUrl("http://zibann.kr:12002/momsplanner/hyun_test/");
         //mTagSearchWebView.loadUrl("http://google.com");
+        mCurrentLocationBtn.setOnClickListener(mOnClickListener);
+        mAreaBtn.setOnClickListener(mOnClickListener);
         showVoice(true);
 
         initSearchView();
@@ -185,6 +196,7 @@ public class MaterialSearchView extends FrameLayout implements Filter.FilterList
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
+					showSearch();
                     showKeyboard(mSearchSrcTextView);
                     showSuggestions();
                 }
@@ -202,7 +214,8 @@ public class MaterialSearchView extends FrameLayout implements Filter.FilterList
 
         public void onClick(View v) {
             if (v == mBackBtn) {
-                closeSearch();
+				clickHome();
+
             } else if (v == mVoiceBtn) {
                 onVoiceClicked();
             } else if (v == mEmptyBtn) {
@@ -211,7 +224,12 @@ public class MaterialSearchView extends FrameLayout implements Filter.FilterList
                 showSuggestions();
             } else if (v == mTintView) {
                 closeSearch();
-            }
+			} else if (v == mCurrentLocationBtn){
+				clickCurrentLocation();
+			} else if (v == mAreaBtn){
+				clickArea();
+			}
+
         }
     };
 
@@ -448,7 +466,8 @@ public class MaterialSearchView extends FrameLayout implements Filter.FilterList
         mSearchSrcTextView.requestFocus();
 
         if (animate) {
-            AnimationUtil.fadeInView(mSearchLayout, AnimationUtil.ANIMATION_DURATION_MEDIUM, new AnimationUtil.AnimationListener() {
+			Log.d("selectAreaInfos", "selectAreaInfos onSearchView show1");
+            AnimationUtil.fadeInView(mTintView, AnimationUtil.ANIMATION_DURATION_MEDIUM, new AnimationUtil.AnimationListener() {
                 @Override
                 public boolean onAnimationStart(View view) {
                     return false;
@@ -468,7 +487,9 @@ public class MaterialSearchView extends FrameLayout implements Filter.FilterList
                 }
             });
         } else {
-            mSearchLayout.setVisibility(VISIBLE);
+			Log.d("selectAreaInfos", "selectAreaInfos onSearchView show2");
+
+			mTintView.setVisibility(VISIBLE);
             if (mSearchViewListener != null) {
                 mSearchViewListener.onSearchViewShown();
             }
@@ -483,18 +504,39 @@ public class MaterialSearchView extends FrameLayout implements Filter.FilterList
         if (!isSearchOpen()) {
             return;
         }
+		Log.d("selectAreaInfos", "selectAreaInfos onSearchView close");
 
         mSearchSrcTextView.setText(null);
         dismissSuggestions();
         clearFocus();
 
-        mSearchLayout.setVisibility(GONE);
+		// mSearchLayout.setVisibility(GONE);
+		mTintView.setVisibility(GONE);
         if (mSearchViewListener != null) {
             mSearchViewListener.onSearchViewClosed();
         }
         mIsSearchOpen = false;
 
     }
+
+	public void clickHome(){
+        if (mSearchViewListener != null) {
+            mSearchViewListener.onClickHome();
+        }
+	}
+
+	public void clickCurrentLocation(){
+        if (mSearchViewListener != null) {
+            mSearchViewListener.onClickCurrentLocation();
+        }
+	}
+
+	public void clickArea(){
+        if (mSearchViewListener != null) {
+            mSearchViewListener.onClickArea();
+        }
+	}
+
 
     /**
      * Set this listener to listen to Query Change events.
@@ -644,6 +686,12 @@ public class MaterialSearchView extends FrameLayout implements Filter.FilterList
         void onSearchViewShown();
 
         void onSearchViewClosed();
+
+		void onClickHome();
+
+		void onClickCurrentLocation();
+
+		void onClickArea();
     }
 
 }
