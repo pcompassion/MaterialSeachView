@@ -200,7 +200,7 @@ public class MaterialSearchView extends FrameLayout implements Filter.FilterList
 
         public void onClick(View v) {
             if (v == mBackBtn) {
-				clickHome();
+				callBackPressed();
             } else if (v == mSearchBtn) {
                 onClickSearch();
             } else if (v == mEmptyBtn) {
@@ -497,9 +497,9 @@ public class MaterialSearchView extends FrameLayout implements Filter.FilterList
         }
     }
 
-	public void clickHome(){
+	public void callBackPressed(){
         if (mSearchViewListener != null) {
-            mSearchViewListener.onClickHome();
+            mSearchViewListener.callBackPressed();
         }
 	}
 
@@ -660,7 +660,7 @@ public class MaterialSearchView extends FrameLayout implements Filter.FilterList
 
 		void onClickSearch();
 
-		void onClickHome();
+		void callBackPressed();
     }
 
 }
