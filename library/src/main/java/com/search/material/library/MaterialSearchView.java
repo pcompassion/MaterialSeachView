@@ -441,7 +441,7 @@ public class MaterialSearchView extends FrameLayout implements Filter.FilterList
 		Log.d("MaterialSearchView", "showSearch");
 
         //Request Focus
-        mSearchSrcTextView.setText(null);
+        // mSearchSrcTextView.setText(null);
         mSearchSrcTextView.requestFocus();
 
         if (animate) {
@@ -484,7 +484,7 @@ public class MaterialSearchView extends FrameLayout implements Filter.FilterList
         }
 		Log.d("MaterialSearchView", "closeSearch");
 
-        mSearchSrcTextView.setText(null);
+        // mSearchSrcTextView.setText(null);
         dismissSuggestions();
         clearFocus();
 
