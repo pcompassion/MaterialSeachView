@@ -182,7 +182,9 @@ public class MaterialSearchView extends FrameLayout implements Filter.FilterList
         mSearchSrcTextView.setOnFocusChangeListener(new OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus && isSearchOpen()) {
+
+                if (hasFocus) {
+					Log.d("MaterialSearchView", "onFocusChange hasFocus");
 					showSearch();
                     showKeyboard(mSearchSrcTextView);
                 }
@@ -215,6 +217,7 @@ public class MaterialSearchView extends FrameLayout implements Filter.FilterList
     };
 
     private void onTextChanged(CharSequence newText) {
+		Log.d("MaterialSearchView", "onTextChanged");
         CharSequence text = mSearchSrcTextView.getText();
         mUserQuery = text;
         boolean hasText = !TextUtils.isEmpty(text);
@@ -233,12 +236,15 @@ public class MaterialSearchView extends FrameLayout implements Filter.FilterList
     }
 
     private void onSubmitQuery() {
+		Log.d("MaterialSearchView", "onSubmitQuery");
         CharSequence query = mSearchSrcTextView.getText();
         if (query != null && TextUtils.getTrimmedLength(query) > 0) {
             if (mOnQueryChangeListener == null || !mOnQueryChangeListener.onQueryTextSubmit(query.toString())) {
-                closeSearch();
+				closeSearch();
                 mSearchSrcTextView.setText(null);
-            }
+			}else{
+				onClickSearch();
+			}
         }
     }
 
@@ -311,7 +317,8 @@ public class MaterialSearchView extends FrameLayout implements Filter.FilterList
      */
     public void showSuggestions() {
         if (mAdapter != null && mAdapter.getCount() > 0 && mSuggestionsListView.getVisibility() == GONE) {
-			Log.d("selectAreaInfos", "selectAreaInfos suggestion show 1");
+			Log.d("MaterialSearchView", "showSuggestion");
+
 
             mSuggestionsListView.setVisibility(VISIBLE);
 			mTintView.setVisibility(VISIBLE);
@@ -347,12 +354,20 @@ public class MaterialSearchView extends FrameLayout implements Filter.FilterList
      */
     public void dismissSuggestions() {
         if (mSuggestionsListView.getVisibility() == VISIBLE) {
-			Log.d("selectAreaInfos", "selectAreaInfos suggestion dissmiss 1");
+			Log.d("MaterialSearchView", "dissmissSuggestion");
 
             mSuggestionsListView.setVisibility(GONE);
 			mTintView.setVisibility(GONE);
         }
     }
+
+	public String getQuery(){
+		String query = "";
+		if(mUserQuery != null){
+			query = mUserQuery.toString();
+		}
+		return query;
+	}
 
 
     /**
@@ -423,13 +438,13 @@ public class MaterialSearchView extends FrameLayout implements Filter.FilterList
         if (isSearchOpen()) {
             return;
         }
+		Log.d("MaterialSearchView", "showSearch");
 
         //Request Focus
         mSearchSrcTextView.setText(null);
         mSearchSrcTextView.requestFocus();
 
         if (animate) {
-			Log.d("selectAreaInfos", "selectAreaInfos onSearchView show1");
 
             AnimationUtil.fadeInView(mSuggestionsListView, AnimationUtil.ANIMATION_DURATION_MEDIUM, new AnimationUtil.AnimationListener() {
                 @Override
@@ -452,9 +467,7 @@ public class MaterialSearchView extends FrameLayout implements Filter.FilterList
                 }
             });
         } else {
-			Log.d("selectAreaInfos", "selectAreaInfos onSearchView show2");
 
-			showSuggestions();
             if (mSearchViewListener != null) {
                 mSearchViewListener.onSearchViewShown();
             }
@@ -469,7 +482,7 @@ public class MaterialSearchView extends FrameLayout implements Filter.FilterList
         if (!isSearchOpen()) {
             return;
         }
-		Log.d("selectAreaInfos", "selectAreaInfos onSearchView close");
+		Log.d("MaterialSearchView", "closeSearch");
 
         mSearchSrcTextView.setText(null);
         dismissSuggestions();
@@ -495,6 +508,7 @@ public class MaterialSearchView extends FrameLayout implements Filter.FilterList
         if (mSearchViewListener != null) {
             mSearchViewListener.onClickSearch();
         }
+		closeSearch();
     }
 
 	public void callBackPressed(){
@@ -524,7 +538,7 @@ public class MaterialSearchView extends FrameLayout implements Filter.FilterList
 
     @Override
     public void onFilterComplete(int count) {
-		Log.d("selectAreaInfos", "selectAreaInfos onFilterComplete ");
+		Log.d("MaterialSearchView", "onFilterComplete");
         if (count > 0) {
 			if(isSearchOpen()){
 				showSuggestions();
@@ -553,6 +567,7 @@ public class MaterialSearchView extends FrameLayout implements Filter.FilterList
      */
     @Override
     public void clearFocus() {
+		Log.d("MaterialSearchView", "clearFocus");
         mClearingFocus = true;
         hideKeyboard(this);
 		dismissSuggestions();
