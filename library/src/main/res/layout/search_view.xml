@@ -83,11 +83,12 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:padding="10dp"
+            android:padding="0dp"
             android:textColor="#fff"
             android:textSize="15dp"
             android:background="#bbb"
 			android:visibility="gone"
+            android:divider="#00000000"
 			/>
     </LinearLayout>
 
