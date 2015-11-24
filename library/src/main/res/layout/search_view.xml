@@ -63,7 +63,7 @@
                 android:background="?android:attr/selectableItemBackground"
                 android:paddingLeft="@dimen/search_icon_padding"
                 android:paddingRight="@dimen/search_icon_padding"
-                android:src="@drawable/ic_fa_search"
+                android:src="@drawable/ic_fa_search_small"
                 android:contentDescription="searchIcon" />
 
             <ImageButton
