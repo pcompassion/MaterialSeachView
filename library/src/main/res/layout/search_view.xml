@@ -40,6 +40,7 @@
                 android:paddingLeft="@dimen/search_view_text_padding"
                 android:paddingRight="@dimen/search_view_text_padding"
                 android:singleLine="true"
+                android:textSize="15dp"
                 android:textColor="@android:color/black"
                 android:textColorHint="@android:color/black"
                 android:textCursorDrawable="@null" />
@@ -62,7 +63,7 @@
                 android:background="?android:attr/selectableItemBackground"
                 android:paddingLeft="@dimen/search_icon_padding"
                 android:paddingRight="@dimen/search_icon_padding"
-                android:src="@drawable/ic_fa_search_dark"
+                android:src="@drawable/ic_fa_search"
                 android:contentDescription="searchIcon" />
 
             <ImageButton
